@@ -15,7 +15,7 @@ cache:
 
 script:
   - mvn clean package -U
-  - docker build -t zanozbot/dostavca-auth .
+  - docker build -t zanozbot/dostavca-auth:1.0-SNAPSHOT .
 
 after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
