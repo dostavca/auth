@@ -1,2 +1,3 @@
-# auth
-Mikrostoritev skrbi za avtentikacijo in avtorizacijo uporabnikov.
+# Dostav'ca Auth
+
+> Naloga mikrostoritve je avtentikacija in avtorizacija uporabnikov, ki dostopajo do spletne rešitve Dostav'ca.

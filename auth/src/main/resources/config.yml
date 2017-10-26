@@ -1,0 +1,6 @@
+kumuluzee:
+  name: dostavca-auth
+  version: 1.0.0
+  server:
+    http:
+      port: 8080
