@@ -18,5 +18,5 @@ script:
   - docker build -t zanozbot/dostavca-auth .
 
 after_success:
-  - docker login -u="$DOCKER_USERNAME" -p="DOCKER_PASSWORD"
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
   - docker push zanozbot/dostavca-auth:1.0-SNAPSHOT
