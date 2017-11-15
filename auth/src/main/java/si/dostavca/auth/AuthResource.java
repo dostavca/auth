@@ -1,5 +1,8 @@
 package si.dostavca.auth;
 
+import com.kumuluz.ee.discovery.annotations.DiscoverService;
+
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -12,8 +15,9 @@ import javax.ws.rs.core.Response;
 @Path("auth")
 public class AuthResource {
 
+    @Inject
+    @DiscoverService(value = "dostavca-profile", version = "1.0.x", environment = "dev")
     private WebTarget target;
-    private final String endpoint = "http://192.168.99.100:8081/v1/profile/";
 
     @GET
     @Path("health")
@@ -24,9 +28,17 @@ public class AuthResource {
     @POST
     @Path("login")
     public Response postLogin(User user) {
-        target = ClientBuilder.newClient().target(endpoint + "packets-delivered");
-        Response response = target.request().post(Entity.entity(user, MediaType.APPLICATION_JSON_TYPE));
-        return response;
+        WebTarget service = target.path("v1/profile");
+
+        Response response;
+
+        try {
+            response = service.request().post(Entity.json(user));
+        } catch (ProcessingException e) {
+            return Response.status(408).build();
+        }
+
+        return Response.fromResponse(response).build();
     }
 
 }
