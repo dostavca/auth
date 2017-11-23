@@ -11,17 +11,21 @@
 
     <version>1.0-SNAPSHOT</version>
 
+    <modules>
+        <module>auth</module>
+    </modules>
+
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <kumuluzee.version>2.4.1</kumuluzee.version>
-        <kumuluzee-discovery.version>1.0.0</kumuluzee-discovery.version>
-    </properties>
+        <nexus.staging.plugin.version>1.6.8</nexus.staging.plugin.version>
 
-    <modules>
-        <module>auth</module>
-    </modules>
+        <kumuluzee.version>2.4.1</kumuluzee.version>
+        <kumuluzee-discovery.version>1.1.0-SNAPSHOT</kumuluzee-discovery.version>
+        <kumuluzee-health.version>1.0.0-SNAPSHOT</kumuluzee-health.version>
+        <kumuluzee-metrics.version>1.0.0-SNAPSHOT</kumuluzee-metrics.version>
+    </properties>
 
 </project>

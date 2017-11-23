@@ -4,11 +4,12 @@ kumuluzee:
     name: dev
   version: 1.0.0
   server:
-    base-url: http://localhost:8080
+    base-url: http://192.168.99.100:8080
     http:
       port: 8080
   discovery:
+    cluster: dostavca
     etcd:
-      hosts: http://localhost:2379
+      hosts: http://192.168.99.100:2379
     ttl: 20
     ping-interval: 15
