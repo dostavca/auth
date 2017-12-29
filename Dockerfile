@@ -1,8 +1,8 @@
 FROM openjdk:8-jre-alpine
 
-COPY auth/target /usr/src/dostavca
+COPY auth/target /usr/src/dostavca/auth
 
-WORKDIR /usr/src/dostavca
+WORKDIR /usr/src/dostavca/auth
 
 EXPOSE 8080
 

@@ -10,6 +10,7 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Optional;
 
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
@@ -20,7 +21,7 @@ public class AuthResource {
 
     @Inject
     @DiscoverService(value = "dostavca-profile", version = "1.0.x", environment = "dev")
-    WebTarget target;
+    Optional<WebTarget> target;
 
     @Inject
     Database database;
@@ -29,21 +30,25 @@ public class AuthResource {
     @Path("login")
     @Metered
     public Response postLogin(User user) {
-        if (database.checkUser(user)) {
-            WebTarget service = target.path("v1/profile/packets-delivered");
-
-            Response response;
-
-            try {
-                response = service.request().post(Entity.json(user));
-            } catch (ProcessingException e) {
-                return Response.status(408).build();
-            }
-
-            return Response.fromResponse(response).build();
-        } else {
+        if(!database.checkUser(user)) {
             return Response.status(404).entity("{ \"message\": \"User does not exit.\" }").build();
         }
+
+        if (!target.isPresent()) {
+            return Response.ok().entity("{ \"message\": \"User authenticated. Profile currently not available.\" }").build();
+        }
+
+        WebTarget service = target.get().path("v1/profile/packets-delivered");
+
+        Response response;
+
+        try {
+            response = service.request().post(Entity.json(user));
+        } catch (ProcessingException e) {
+            return Response.status(408).build();
+        }
+
+        return Response.fromResponse(response).build();
     }
 
 }
